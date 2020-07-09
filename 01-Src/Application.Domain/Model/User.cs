@@ -1,4 +1,5 @@
 ﻿using System;
+using T.Application.Domain;
 
 namespace Application.Domain.Model
 {

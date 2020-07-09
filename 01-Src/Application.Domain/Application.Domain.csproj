@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="T.Application.Domain" Version="1.0.1" />
+    <PackageReference Include="T.Application.Domain" Version="1.0.2" />
   </ItemGroup>
 
 </Project>
