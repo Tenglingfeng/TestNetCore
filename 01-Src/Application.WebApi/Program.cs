@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Application.WebApi
+namespace Applications.WebApi
 {
     public class Program
     {
@@ -18,6 +14,14 @@ namespace Application.WebApi
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureLogging((context, loggingBuilder) =>
+                {
+                    loggingBuilder.AddFilter("System", LogLevel.Warning);//过滤掉命名空间
+                    loggingBuilder.AddFilter("Microsoft", LogLevel.Warning);
+                    var path = context.HostingEnvironment.ContentRootPath;
+                    loggingBuilder.AddLog4Net($"{path}/log4net.config");//配置文件
+                })
+                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
