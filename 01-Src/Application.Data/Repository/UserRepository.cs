@@ -26,9 +26,10 @@ namespace Applications.Data.Repository
             await AddAsync(model);
         }
 
-        public IQueryable<User> PageQuery(UserQuery query)
+        public  IQueryable<User> PageQuery(UserQuery query)
         {
-            return FindAsync(x => x.Age == query.Age).OrderBy(x => x.Age);
+            QueryBase<User> query1 = new QueryBase<User>();
+            return FindAsync(query1.GetExpression()).OrderByDescending(x => x.Id);
         }
 
         public async Task<IEnumerable<User>> Query(UserQuery query)
@@ -37,7 +38,7 @@ namespace Applications.Data.Repository
                 .Filter(x => x.Age > query.Age)
                 .Filter(x => x.Name.Contains(query.Name));
 
-            var result = await FindAsync(query1.GetExpression()).ToListAsync();
+            var result = await FindAsync(query1.GetExpression()).OrderByDescending(x=>x.Id).ToListAsync();
             return result;
         }
 

@@ -18,7 +18,6 @@ namespace Applications.Data.DbContext
             DbContextHelper.DbSet(modelBuilder);
             DbContextHelper.LogicDelete(modelBuilder);
 
-            base.OnModelCreating(modelBuilder);
         }
 
      
